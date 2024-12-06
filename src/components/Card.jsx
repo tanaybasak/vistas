@@ -1,15 +1,16 @@
 import { Box, Typography } from "@mui/material";
 import "./Card.css";
 import { useNavigate } from "react-router-dom";
-function CardBrand() {
+import PropTypes from "prop-types";
+function CardBrand({ title, description, img }) {
   const navigate = useNavigate();
   const handleItemClick = () => {
-      navigate('/branding/details');
+    navigate('/branding/details');
   }
   return (
     <Box className="card" onClick={handleItemClick}>
       <img
-        src="https://via.placeholder.com/300x200"
+        src={img}
         alt="Card"
         className="card_img"
       />
@@ -21,14 +22,19 @@ function CardBrand() {
           sx={{ border: "none" }}
           className="card_title"
         >
-          VISITING CARD
+          {title}
         </Typography>
         <Typography variant="body2" noWrap sx={{ border: "none" }} className="card_subtitle">
-          This is the text at the bottom of the card.
+          {description}
         </Typography>
       </Box>
     </Box>
   );
 }
 
+CardBrand.propTypes = {
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  img: PropTypes.string.isRequired
+}
 export default CardBrand;
