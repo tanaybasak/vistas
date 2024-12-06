@@ -19,29 +19,14 @@ const cardData = [
 function Branding() {
   return (
     <>
-      {/* <Grid2
-        container
-        spacing={4}
-        style={{ padding: 16 }}
-        justifyContent={"center"}
-        alignItems={"center"}
-      >
-        {cardData.map((card) => (
-          <Grid2 key={card.id} xs={12} sm={6} md={4} lg={3}>
-            <CardBrand title={card.title} description={card.description} img={card.image} />
-          </Grid2>
-        ))}
-      </Grid2> */}
-
       <div className="branding_container">
         {cardData.map((card) => (
           <div className="grid-item" key={card.id}>
             <CardBrand title={card.title} description={card.description} img={card.image} />
           </div>
         ))}
-        <Outlet />
-
       </div>
+      <Outlet />
     </>
   );
 }
