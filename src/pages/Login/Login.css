@@ -1,0 +1,64 @@
+/* Login box container */
+
+.login-page {
+    background-color: #F4F7FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+}
+
+.login-box {
+    background-color: #fff;
+    padding: 80px 60px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    width: 40rem;
+    text-align: center;
+}
+
+
+/* Heading style */
+
+.login-heading {
+    font-weight: bold !important;
+    margin-bottom: 3rem !important;
+}
+
+
+/* Country code */
+
+.country-code {
+    color: #999;
+    padding-right: 0.25rem;
+}
+
+
+/* Terms and policy text */
+
+.terms-text {
+    color: #666;
+    font-size: 14px;
+    margin-top: 1rem;
+    margin-bottom: 2rem !important;
+}
+
+.terms-text span {
+    color: #3b56f0;
+    cursor: pointer;
+}
+
+
+/* Continue button */
+
+.continue-button {
+    background-color: #2E3CCE !important;
+    padding: 0.75rem;
+    border-radius: 8px !important;
+    width: 25rem !important;
+    text-transform: none !important;
+}
+
+.continue-button:hover {
+    background-color: #3448d0;
+}

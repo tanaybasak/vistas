@@ -22,7 +22,7 @@ function Navbar() {
         <Grid2 size={{ xs: 6, md: 4 }} className="font-bold d-flex p-2">
           <img src={callImg} alt="call" />{" "}
           <span style={{ marginRight: "10px" }}>{CONST.phoneNumber}</span>
-          <Button variant="contained">LogIn / SIGN-UP</Button>
+          <Button variant="contained" onClick={() => navigate('/login')}>LogIn / SIGN-UP</Button>
         </Grid2>
       </Grid2>
 

@@ -5,10 +5,30 @@ import ChipItem from "../ChipItem";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import PropTypes from "prop-types";
+import { useState } from "react";
 
 function Form({ category_one, category_two }) {
-  
+    const [quantity, setQuantity] = useState(10);
+    const [total, setTotal] = useState(200);
 
+    const updateTotal = (newQuantity) => {
+        setTotal(newQuantity * 20); // ₹20 per unit
+    };
+    const handleSubQuantity = () => {
+        setQuantity((prevQuantity) => {
+            const newQuantity = Math.max(10, prevQuantity - 10);
+            updateTotal(newQuantity); // Update total based on new quantity
+            return newQuantity;
+        });
+    };
+
+    const handleAddQuantity = () => {
+        setQuantity((prevQuantity) => {
+            const newQuantity = prevQuantity + 10;
+            updateTotal(newQuantity); // Update total based on new quantity
+            return newQuantity;
+        });
+    };
     return (
         <Box className="form">
             <Typography className="form_heading" gutterBottom>
@@ -74,9 +94,9 @@ function Form({ category_one, category_two }) {
                     Quantity
                 </Typography>
                 <Stack className="quantity chip_tags">
-                    <Button variant="outlined" className="remove_btn"> <RemoveIcon /> </Button>
-                    <input type="number" className="quantity" value={10} />
-                    <Button variant="outlined" className="add_btn"> <AddIcon /> </Button>
+                    <Button variant="outlined" className="remove_btn" onClick={handleSubQuantity}> <RemoveIcon /> </Button>
+                    <input type="number" className="quantity" value={quantity} />
+                    <Button variant="outlined" className="add_btn" onClick={handleAddQuantity}> <AddIcon /> </Button>
                 </Stack>
             </Box>
             <Box className="drag_design_upload">
@@ -84,7 +104,7 @@ function Form({ category_one, category_two }) {
                     Price
                 </Typography>
                 <Typography variant="subtitle1" className="price" fontWeight={'bold'} gutterBottom>
-                    &#8377;200
+                    &#8377;{total} 
                 </Typography>
             </Box>
             <Box className="drag_design_upload">
