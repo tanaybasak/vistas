@@ -1,56 +1,63 @@
-import React, { useState } from "react";
-import { Box, TextField, Typography, Button } from "@mui/material";
-import { useLocation } from "react-router-dom";
-import './Otp.css'
-import { firebaseApp } from "../../firebaseConfig"; // Ensure you have Firebase initialized
+import { Box, Typography, Button } from "@mui/material";
+import "./Otp.css";
+import InputField from "../../components/InputField";
+import { useNavigate } from "react-router-dom";
 
-const OTPPage = () => {
-const handleOtp = () => {}
+const Otp = () => {
+    const navigate = useNavigate()
+  const handleContinue = () => {
+    navigate('/address')
+  };
 
   return (
-    <Box className="login-page">
-    <Box className="login-box">
-      <Typography variant="h5" className="login-heading">
-        VERIFY WITH OTP
-      </Typography>
-      <Typography variant="subtitle1" color="textSecondary" className="login-subtitle"> Sent to 8638974203</Typography>
+    <Box className="otp-page">
+      <Box className="otp-box">
+        <Typography variant="h5" className="otp-heading">
+          VERIFY WITH OTP
+        </Typography>
+        <Typography
+            variant="subtitle1"
+            color="textSecondary"
+            className="otp-subtitle"
+          >
+            Sent to
+          </Typography>
+        <Box className="otp_content">
+          <InputField
+            placeholder=""
+            type="number"
+            className="otp_text"
+          />
+          <InputField
+            placeholder=""
+            type="number"
+            className="otp_text"
+          />
+          <InputField
+            placeholder=""
+            type="number"
+            className="otp_text"
+          />
+          <InputField
+            placeholder=""
+            type="number"
+            className="otp_text"
+          />
+        
 
-      <Box className="otp_text_field">
-      <TextField
-          variant="outlined"
-          className="otp_text"
-          required
-        />
-          <TextField
-          variant="outlined"
-          className="otp_text"
-          required
-
-        />
-          <TextField
-          variant="outlined"
-          className="otp_text"
-          required
-
-        />
-          <TextField
-          variant="outlined"
-          className="otp_text"
-          required
-
-        />
+        
+        </Box>
+        <Button
+            variant="contained"
+            className="continue-button otp_button"
+            onClick={handleContinue}
+            fullWidth
+          >
+            Continue
+          </Button>
       </Box>
-      <br />
-      <Button
-        variant="contained"
-        className="continue-button"
-        onClick={handleOtp}
-      >
-        Continue
-      </Button>
     </Box>
-  </Box>
   );
 };
 
-export default OTPPage;
+export default Otp;

@@ -1,13 +1,13 @@
 /* Login box container */
 
-.address-page {
+.order-page {
     background-color: #F4F7FF;
     display: grid;
     place-items: center;
     min-height: calc(100vh - 140px);
 }
 
-.address-box {
+.order-box {
     background-color: #fff;
     padding: 80px 60px;
     border-radius: 20px;
@@ -19,13 +19,17 @@
 
 /* Heading style */
 
-.address-heading {
+.order-heading {
     font-weight: bold !important;
     margin-bottom: 0.5rem !important;
 }
 
-.address-subtitle {
+.order-subtitle {
     margin-bottom: 3rem !important;
+}
+
+.table_row {
+    box-shadow: none !important;
 }
 
 
@@ -54,11 +58,11 @@
 
 /* Continue button */
 
-.address_btn {
+.order_btn {
     margin-top: 2rem !important;
 }
 
-.address_content {
+.order_content {
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
@@ -67,4 +71,14 @@
         border-radius: 8px;
         height: 1rem;
     }
+}
+
+.table_content {
+    font-weight: bold !important;
+    font-size: 16px !important;
+}
+
+.total_price {
+    color: #2E3CCE !important;
+    border: 0 !important;
 }

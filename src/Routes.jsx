@@ -6,6 +6,7 @@ import Student from './pages/Student/Student';
 import Login from './pages/Login/Login';
 import OTPPage from './pages/Otp/Otp';
 import Address from './pages/Address/Address';
+import OrderDetails from './pages/OrderDetails/OrderDetails';
 
 const AppRoutes = () => (
   <Router>
@@ -20,6 +21,8 @@ const AppRoutes = () => (
       <Route path='/otp' element={<OTPPage />} />
 
       <Route path='/address' element={<Address />} />
+      <Route path='/order' element={<OrderDetails />} />
+
     </Routes>
   </Router>
 );

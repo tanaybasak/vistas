@@ -22,6 +22,7 @@ a:hover {
 body {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 .d-flex {
@@ -41,4 +42,20 @@ body {
 .plr-5 {
     padding-left: 5rem;
     padding-right: 5rem;
+}
+
+input::placeholder {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+}
+
+.continue-button {
+    background-color: #2E3CCE !important;
+    border-radius: 8px !important;
+    text-transform: none !important;
+    padding: 15px 12px !important;
+}
+
+.continue-button:hover {
+    background-color: #3448d0;
 }

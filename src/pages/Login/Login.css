@@ -2,10 +2,9 @@
 
 .login-page {
     background-color: #F4F7FF;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 80vh;
+    display: grid;
+    place-items: center;
+    min-height: calc(100vh - 140px);
 }
 
 .login-box {
@@ -14,7 +13,12 @@
     border-radius: 20px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
     width: 40rem;
-    text-align: center;
+    display: grid;
+    place-items: center;
+}
+
+.login_content {
+    width: 90%;
 }
 
 
@@ -22,6 +26,10 @@
 
 .login-heading {
     font-weight: bold !important;
+    margin-bottom: 3.5rem !important;
+}
+
+.login-subtitle {
     margin-bottom: 3rem !important;
 }
 
@@ -51,14 +59,17 @@
 
 /* Continue button */
 
-.continue-button {
-    background-color: #2E3CCE !important;
-    padding: 0.75rem;
-    border-radius: 8px !important;
-    width: 25rem !important;
-    text-transform: none !important;
+.login_button {
+    margin-top: 2rem;
 }
 
-.continue-button:hover {
-    background-color: #3448d0;
+.address_content {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    .address_text {
+        margin-bottom: 0.5rem;
+        border-radius: 8px;
+        height: 1rem;
+    }
 }
