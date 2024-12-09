@@ -6,8 +6,7 @@ import {
     TableRow,
     TableCell,
     TableContainer,
-    TableBody,
-    Paper,
+    TableBody
 } from "@mui/material";
 import "./Order.css";
 
