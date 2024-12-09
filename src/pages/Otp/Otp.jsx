@@ -75,6 +75,7 @@ const Otp = () => {
           VERIFY WITH OTP
         </Typography>
         <Typography
+<<<<<<< HEAD
           variant="subtitle1"
           color="textSecondary"
           className="otp-subtitle"
@@ -111,6 +112,48 @@ const Otp = () => {
         open={alertOpen}
         onClose={handleCloseAlert}
       />
+=======
+            variant="subtitle1"
+            color="textSecondary"
+            className="otp-subtitle"
+          >
+            Sent to
+          </Typography>
+        <Box className="otp_content">
+          <InputField
+            placeholder=""
+            type="number"
+            className="otp_text"
+          />
+          <InputField
+            placeholder=""
+            type="number"
+            className="otp_text"
+          />
+          <InputField
+            placeholder=""
+            type="number"
+            className="otp_text"
+          />
+          <InputField
+            placeholder=""
+            type="number"
+            className="otp_text"
+          />
+        
+
+        
+        </Box>
+        <Button
+            variant="contained"
+            className="continue-button otp_button"
+            onClick={handleContinue}
+            fullWidth
+          >
+            Continue
+          </Button>
+      </Box>
+>>>>>>> 95f5a1f48726e552a5d254ea5bd5d4d1802714c8
     </Box>
   );
 };
