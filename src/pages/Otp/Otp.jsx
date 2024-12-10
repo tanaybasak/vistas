@@ -6,6 +6,7 @@ import axios from "axios";
 import { useRef, useState } from "react";
 import AlertComponent from "../../components/Alert";
 import { useOtpContext } from "../../context/OtpContext";
+import config from "../../config";
 
 const Otp = () => {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ const Otp = () => {
   const handleContinue = async () => {
     const otpCode = otp.join(""); // Combine OTP digits into a single string
     try {
-      const response = await axios.post("https://vistasbackend.vercel.app/verify-otp", {
+      const response = await axios.post(`${config.baseURL}/otp/verify-otp`, {
         phoneNumber: phoneNumber,
         code: otpCode,
       });

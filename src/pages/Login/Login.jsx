@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import AlertComponent from "../../components/Alert";
-
+import config from '../../config.js';
 const Login = () => {
   const [phoneNumber, setPhone] = useState("");
   const [alertOpen, setAlertOpen] = useState(false);
@@ -47,7 +47,7 @@ const Login = () => {
   
   const handleContinue = async () => {
     try {
-      const response = await axios.post("https://vistasbackend.vercel.app/send-otp", {
+      const response = await axios.post(`${config.baseURL}/otp/send-otp`, {
         phoneNumber,
       });
       if (response.data.success) {

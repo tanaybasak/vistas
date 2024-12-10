@@ -34,9 +34,9 @@ function Navbar() {
               </span>{" "}
             </>
           )}
-          <Button variant="contained" onClick={() => navigate("/login")}>
+          {otpVerified ? <></> : <Button variant="contained" onClick={() => navigate("/login")}>
             LogIn / SIGN-UP
-          </Button>
+          </Button>}
         </Grid2>
       </Grid2>
 

@@ -1,44 +1,82 @@
 import { Box, Button } from "@mui/material";
 import whatsapp from "../assets/whatsapp.svg";
-import emailjs from "emailjs-com";
 import "./StudentForm.css";
-import { useState } from "react";
-function StudentForm() {
+import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import AlertComponent from "./Alert";
+import axios from "axios";
+import config from "../config";
+function StudentForm({ type }) {
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertSeverity, setAlertSeverity] = useState("info");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [formData, setFormData] = useState({
     name: "",
     number: "",
     email: "",
-    requirements: "",
+    description: "",
+    type: type,
   });
+
+  const validateForm = () => {
+    const { name, number, email, description } = formData;
+    const isValid =
+      name.trim() !== "" &&
+      number.trim() !== "" &&
+      email.trim() !== "" &&
+      description.trim() !== "";
+    setIsButtonDisabled(!isValid);
+  };
+  const handleShowAlert = (message, severity) => {
+    setAlertMessage(message);
+    setAlertSeverity(severity);
+    setAlertOpen(true);
+  };
+
+  const handleCloseAlert = () => {
+    setAlertOpen(false);
+  };
+
+  const onSubmit = async () => {
+    try {
+      const response = await axios.post(
+        `${config.baseURL}/enquiry/createEnquiry`,
+        {
+          name: formData.name,
+          email: formData.email,
+          description: formData.description,
+          number: formData.number,
+          type: formData.type,
+        }
+      );
+      if (response.data.success) {
+        handleShowAlert("Enquiry Registered", "success");
+        setFormData({
+          name: "",
+          number: "",
+          email: "",
+          description: "",
+          type: type,
+        });
+      }
+    } catch (error) {
+      handleShowAlert("Enquiry Not Registered", "error");
+    }
+    // Add your form submission logic here (e.g., API call)
+  };
 
   // Handle input changes
   const handleInputChange = (e) => {
-    console.log(e)
+    console.log(e);
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    validateForm();
+  }, [formData]);
 
-    // Send email using EmailJS
-    emailjs
-      .sendForm(
-        "service_rgon1xj", // Replace with your service ID
-        "template_qgnicvq", // Replace with your template ID
-        e.target,
-        "gzQMH2z9L1RZ6gGim" // Replace with your user ID
-      )
-      .then((result) => {
-        console.log(result.text);
-        alert("Form submitted successfully!");
-      })
-      .catch((error) => {
-        console.error(error.text);
-        alert("There was an error submitting the form.");
-      });
-  };
   return (
     <Box className="student_form_container">
       <Box className="student_heading">
@@ -47,7 +85,12 @@ function StudentForm() {
       </Box>
       <Box className="assignment_container">
         <Box className="item" textAlign={"right"}>
-          <form onSubmit={handleSubmit}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault(); // Prevent the default form submission
+              onSubmit(); // Call your custom submit function
+            }}
+          >
             <input
               type="text"
               className="assignment_textField"
@@ -79,14 +122,19 @@ function StudentForm() {
 
             <input
               type="text"
-              value={formData.requirements}
-              name="requirements"
+              value={formData.description}
+              name="description"
               onChange={handleInputChange}
               className="assignment_textField"
-              placeholder="What are you looking for"
+              placeholder="Enter your description"
               required
             />
-            <Button variant="contained" className="submit_btn">
+            <Button
+              variant="contained"
+              className="submit_btn"
+              type="submit"
+              disabled={isButtonDisabled}
+            >
               Submit
             </Button>
           </form>
@@ -99,8 +147,18 @@ function StudentForm() {
           <img src={whatsapp} alt="whatsapp" />
         </Box>
       </Box>
+      <AlertComponent
+        message={alertMessage}
+        severity={alertSeverity}
+        open={alertOpen}
+        onClose={handleCloseAlert}
+      />
     </Box>
   );
 }
+
+StudentForm.propTypes = {
+  type: PropTypes.string,
+};
 
 export default StudentForm;

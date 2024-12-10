@@ -15,7 +15,7 @@ export const OtpProvider = ({ children }) => {
 
   useEffect(() => {
     // Check localStorage on initial load to see if OTP is verified
-    const storedOtpVerified = localStorage.getItem('otpVerified');
+    const storedOtpVerified = sessionStorage.getItem('otpVerified');
     if (storedOtpVerified === 'true') {
       setOtpVerified(true);
     }
