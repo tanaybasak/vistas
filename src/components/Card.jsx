@@ -2,10 +2,14 @@ import { Box, Typography } from "@mui/material";
 import "./Card.css";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-function CardBrand({ title, description, img }) {
+function CardBrand({ title, description, img, id, quantity, amount, details }) {
   const navigate = useNavigate();
   const handleItemClick = () => {
-    navigate('/branding/details');
+    const props = {
+      title, description, img, quantity, amount, details, id
+    }
+    console.log(id)
+    navigate(`/branding/details/${id}`, { state: props });
   }
   return (
     <Box className="card" onClick={handleItemClick}>
@@ -35,6 +39,10 @@ function CardBrand({ title, description, img }) {
 CardBrand.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired
+  img: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  details: PropTypes.string.isRequired,
+  amount: PropTypes.number.isRequired,
+  quantity: PropTypes.number.isRequired
 }
 export default CardBrand;

@@ -3,7 +3,7 @@ import "./Otp.css";
 import InputField from "../../components/InputField";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AlertComponent from "../../components/Alert";
 import { useOtpContext } from "../../context/OtpContext";
 import config from "../../config";
@@ -15,9 +15,16 @@ const Otp = () => {
   const [alertMessage, setAlertMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState("info");
   const { phoneNumber } = location.state || {};
-  const { verifyOtp } = useOtpContext();
+  const { updatePhoneNumber, verifyOtp } = useOtpContext();
   const inputsRef = useRef([]);
   const [otp, setOtp] = useState(Array(4).fill("")); // Initialize OTP as an array of empty strings
+
+  useEffect(() => {
+    // Update phoneNumber in context if available from location.state
+    if (location.state?.phoneNumber) {
+      updatePhoneNumber(phoneNumber);
+    }
+  }, [location.state, updatePhoneNumber]);
 
   const handleOtpChange = (index, e) => {
     const value = e.target.value;

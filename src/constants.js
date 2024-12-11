@@ -19,7 +19,7 @@ export default {
             path: "/designer",
         },
     ],
-    texture: [{ id: 1, name: 'Matte', selected: true }, { id: 2, name: 'Glossy', selected: false }, { id: 3, name: 'Velvet Touch', selected: false }, { id: 4, name: 'Non-terable', selected: false }],
-    corners: [{ id: 1, name: 'Standard', selected: true }, { id: 2, name: 'Rounded', selected: false }]
+    texture: [{ id: 1, name: 'Matte', selected: false }, { id: 2, name: 'Glossy', selected: false }, { id: 3, name: 'Velvet Touch', selected: false }, { id: 4, name: 'Non-terable', selected: false }],
+    corners: [{ id: 1, name: 'Standard', selected: false }, { id: 2, name: 'Rounded', selected: false }]
 
 }

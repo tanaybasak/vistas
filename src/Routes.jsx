@@ -24,7 +24,7 @@ const AppRoutes = () => (
       <Routes>
         <Route path="/" element={<Navigate replace to="/branding" />} />
         <Route path="/branding" element={<Branding />} />
-        <Route path="/branding/details" element={<Details />} />
+        <Route path="/branding/details/:id" element={<Details />} />
         <Route path='/assignments' element={<AssignmentEnquiry />} />
         <Route path='/bulk' element={<BulkEnquiry />} />
         <Route path='/login' element={<Login />} />

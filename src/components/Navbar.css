@@ -3,7 +3,7 @@
 }
 
 .appBar {
-    background-color: transparent !important;
+    background-color: #fff !important;
     color: #000;
     border-bottom: 1px solid #ECEDEE;
     .appBar_toolbar {
@@ -12,4 +12,8 @@
         justify-content: center;
         gap: 2
     }
+}
+
+.header-login {
+    background-color: #fff;
 }

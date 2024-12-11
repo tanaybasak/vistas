@@ -8,7 +8,7 @@ import { useOtpContext } from "../context/OtpContext";
 function Navbar() {
   const [activeButton, setActiveButton] = useState(0); // Track the active button
   const navigate = useNavigate();
-  const { otpVerified } = useOtpContext();
+  const { otpVerified, phoneNumber } = useOtpContext();
   const handleButtonClick = (buttonIndex, path) => {
     setActiveButton(buttonIndex); // Update the active button
     if (path) navigate(path); // Navigate if a path is provided
@@ -17,7 +17,7 @@ function Navbar() {
   console.log(otpVerified);
   return (
     <>
-      <Grid2 container spacing={2}>
+      <Grid2 container spacing={2} className="header-login">
         <Grid2
           size={{ xs: 6, md: 8 }}
           className="p-2 logo"
@@ -30,8 +30,8 @@ function Navbar() {
             <>
               <img src={callImg} alt="call" />
               <span style={{ marginRight: "10px" }}>
-                {CONST.phoneNumber}
-              </span>{" "}
+                {phoneNumber}
+              </span>
             </>
           )}
           {otpVerified ? <></> : <Button variant="contained" onClick={() => navigate("/login")}>
