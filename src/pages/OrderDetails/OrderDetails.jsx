@@ -49,7 +49,7 @@ const OrderDetails = () => {
             setPaymentBreakup([
               { name: `${amountDetails.itemName} * ${amountDetails.quantity}`, price: amountDetails.amount },
               { name: "Delivery charges", price: amountDetails.delivery },
-              { name: "GST 5%", price: amountDetails.gst },
+              { name: "GST 5%", price: amountDetails.gst },     `                                                                                                                                                                               ```````
               { name: "Total", price: amountDetails.totalAmount, className: "total_price" },
             ]);
 

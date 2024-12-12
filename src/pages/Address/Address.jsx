@@ -30,10 +30,11 @@ const Address = () => {
     Object.values(formValues).every((value) => value.trim() !== "") &&
     isValidPincode;
 
-
   const handleContinue = () => {
-    if(isFormValid)
-    navigate('/order')
+    if (isFormValid) {
+      if (sessionStorage.getItem("orderExecuted") === true) navigate("/order");
+      else navigate("/branding");
+    }
   };
 
   return (
@@ -47,7 +48,7 @@ const Address = () => {
           color="textSecondary"
           className="address-subtitle"
         >
-          Your ordered will be delivered in the above <br/> mentioned address
+          Your ordered will be delivered in the above <br /> mentioned address
         </Typography>
 
         <Box className="address_content">
@@ -63,30 +64,29 @@ const Address = () => {
             type="text"
             className="address_text"
           />
-           <InputField
+          <InputField
             placeholder="City / State*"
             onChange={(e) => handleInputChange("city", e.target.value)}
             type="text"
             className="address_text"
           />
-           <InputField
+          <InputField
             placeholder="Pin code*"
             type="number"
             className="address_text"
             onChange={(e) => handleInputChange("pincode", e.target.value)}
           />
 
-        <Button
-          variant="contained"
-          className="continue-button address_btn"
-          onClick={handleContinue}
-          disabled={!isFormValid}
-          fullWidth
-        >
-          Continue
-        </Button>
+          <Button
+            variant="contained"
+            className="continue-button address_btn"
+            onClick={handleContinue}
+            disabled={!isFormValid}
+            fullWidth
+          >
+            Continue
+          </Button>
         </Box>
-
       </Box>
     </Box>
   );

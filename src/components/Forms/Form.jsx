@@ -121,6 +121,7 @@ const items = details.split(',');
         // Handle the responses
         if (brandingResponse.data) {
           updateOrderId(brandingResponse.data.itemId);
+          sessionStorage.setItem('orderExecuted', true);
           handleShowAlert("Amount and Item Details are Saved", "success");
           navigate("/order", {state: {title: brandingResponse.data.title}});
         } else {
