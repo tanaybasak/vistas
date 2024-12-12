@@ -98,12 +98,10 @@ const items = details.split(',');
   const handleSubmit = async () => {
     const selectedCategoryOne = formData.categoryOne.find((item) => item.selected)?.name;
     const selectedCategoryTwo = formData.categoryTwo.find((item) => item.selected)?.name;
-    updateOrderId(id);
     try {
       if (otpVerified) {
         // Send both requests concurrently using Promise.all
-        const [brandingResponse, amountResponse] = await Promise.all([
-          axios.post(
+        const brandingResponse = await axios.post(
             `${config.baseURL}/branding/saveBranding`,
             {
               itemId: id,
@@ -117,23 +115,14 @@ const items = details.split(',');
               amount: formData.total,
               details: details,
             }
-          ),
-          axios.post(
-            `${config.baseURL}/amount/saveAmountDetails`,
-            {
-              itemName: title,
-              amount: formData.total,
-              phoneNumber: phoneNumber,
-              deliveryCharges: 50,
-              gst: 0.05,
-            }
-          ),
-        ]);
+          )
+          console.log(brandingResponse);
   
         // Handle the responses
-        if (brandingResponse.data && amountResponse.data) {
+        if (brandingResponse.data) {
+          updateOrderId(brandingResponse.data.itemId);
           handleShowAlert("Amount and Item Details are Saved", "success");
-          navigate("/order", {state: {title: title}});
+          navigate("/order", {state: {title: brandingResponse.data.title}});
         } else {
           handleShowAlert("Amount and Item Details not saved", "error");
         }

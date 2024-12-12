@@ -60,7 +60,7 @@ const RenderRazorpay = ({
     const handlePayment = async (status, orderDetails = {}) => {
         
         try {
-        await Axios.post(`${config.baseURL}/order/verifyOrder`,
+        await Axios.post(`${config.baseURL}/payment/verifyPayment`,
             {
                 status,
                 orderDetails,

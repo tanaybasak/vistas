@@ -15,7 +15,6 @@ import RenderRazorpay from "./RenderRazorpay";
 import AlertComponent from "../../components/Alert";
 import axios from "axios";
 import { useOtpContext } from "../../context/OtpContext";
-import { useLocation } from "react-router-dom";
 import { useOrderContext } from "../../context/OrderContext";
 const OrderDetails = () => {
     const [alertMessage, setAlertMessage] = useState("");
@@ -23,15 +22,16 @@ const OrderDetails = () => {
     const [alertSeverity, setAlertSeverity] = useState("info");
     const { phoneNumber } = useOtpContext();
     const [displayRazorpay, setDisplayRazorpay] = useState(false);
-    const { orderId } = useOrderContext(); // Access orderId and update function
-    const [amountDetails, setAmountDetails] = useState({
-        phoneNumber: '',
-        gst: 0.05,
-        amount: 200,
-        deliveryCharges: 50,
-        itemName:''
-
-    })
+    const [paymentBreakup, setPaymentBreakup] = useState([]);
+  const { orderId } = useOrderContext(); // Access orderId and update function
+  const [amountDetails, setAmountDetails] = useState({
+    gst: 0.05,
+    quantity: 0,
+    amount: 200,
+    delivery: 50,
+    itemName: '',
+    totalAmount: 0
+  });
     const [orderDetails, setOrderDetails] = useState({
         orderId: null,
         currency: null,
@@ -42,15 +42,16 @@ const OrderDetails = () => {
     useEffect(async () => {
 
         try {
-            const amountDetails = await axios.get(config.baseURL + `/branding/getBranding/${orderId}`);
-            console.log(amountDetails)
-            setAmountDetails({
-                phoneNumber: phoneNumber,
-                gst: amountDetails.data.gst,
-                amount: amountDetails.data.amount,
-                deliveryCharges: amountDetails.data.deliveryCharges,
-                itemName: amountDetails.data.itemName
-            })
+            const response = await axios.get(config.baseURL + `/branding/getBranding/${orderId}`);
+            const amountDetails = response.data;
+      
+            setAmountDetails(amountDetails);
+            setPaymentBreakup([
+              { name: `${amountDetails.itemName} * ${amountDetails.quantity}`, price: amountDetails.amount },
+              { name: "Delivery charges", price: amountDetails.delivery },
+              { name: "GST 5%", price: amountDetails.gst },
+              { name: "Total", price: amountDetails.totalAmount, className: "total_price" },
+            ]);
 
             handleShowAlert("Fetching amount details", "success");
         } catch (error) {
@@ -73,8 +74,8 @@ const OrderDetails = () => {
     };
     const handleCreateOrder = async () => {
         try {
-            const placedOrder = await axios.post(config.baseURL + "/order/placeOrder", {
-                amount: amountDetails.amount,
+            const placedOrder = await axios.post(config.baseURL + "/payment/createPayment", {
+                amount: amountDetails.totalAmount,
                 userId: phoneNumber,
                 currency: "INR",
                 keyId: import.meta.env.REACT_APP_RAZORPAY_KEY_ID,
@@ -97,15 +98,7 @@ const OrderDetails = () => {
         }
     };
 
-    const rows = [
-        {
-            name: amountDetails.itemName,
-            price: amountDetails.amount,
-        },
-        { name: "Delivery charges", price: amountDetails.deliveryCharges },
-        { name: "GST 5%", price: amountDetails.gst },
-        { name: "Total", price: amountDetails.amount, className: "total_price" },
-    ];
+
 
     return (
         <Box className="order-page">
@@ -125,29 +118,29 @@ const OrderDetails = () => {
                     <TableContainer>
                         <Table>
                             <TableBody>
-                                {rows.map((row, index) => (
+                                {paymentBreakup.length > 0 && paymentBreakup?.map((row, index) => (
                                     <TableRow key={row.name} className="table_row">
                                         {/* Handle first row differently */}
                                         {index === 0 ? (
                                             <>
                                                 <TableCell className="table_content">
-                                                    {row.name.split(",").map((item, idx) => (
+                                                    {row?.name.split(",").map((item, idx) => (
                                                         <div key={idx} className="tableitems">
                                                             {item.trim()}
                                                         </div> // Each item on a new line
                                                     ))}
                                                 </TableCell>
                                                 <TableCell className="table_content">
-                                                    &#8377;{row.price} {/* Price */}
+                                                    &#8377;{row?.price} {/* Price */}
                                                 </TableCell>
                                             </>
                                         ) : (
                                             <>
-                                                <TableCell className={`table_content ${row.className}`}>
-                                                    {row.name}
+                                                <TableCell className={`table_content ${row?.className}`}>
+                                                    {row?.name}
                                                 </TableCell>
-                                                <TableCell className={`table_content ${row.className}`}>
-                                                    &#8377;{row.price}
+                                                <TableCell className={`table_content ${row?.className}`}>
+                                                    &#8377;{row?.price}
                                                 </TableCell>
                                             </>
                                         )}
@@ -177,8 +170,8 @@ const OrderDetails = () => {
                     amount={orderDetails.amount}
                     currency={orderDetails.currency}
                     orderId={orderDetails.orderId}
-                    keyId={"rzp_test_RJr4yjHjt8VHze"}
-                    keySecret={"qTp0GBcJN1HDMSBL696csGuw"}
+                    keyId={import.meta.env.REACT_APP_RAZORPAY_KEY_ID}
+                    keySecret={import.meta.env.REACT_APP_RAZORPAY_KEY_SECRET}
                 />
             )}
         </Box>
