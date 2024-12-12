@@ -53,15 +53,9 @@ const OrderDetails = () => {
               { name: "Total", price: amountDetails.totalAmount, className: "total_price" },
             ]);
 
-            handleShowAlert("Fetching amount details", "success");
         } catch (error) {
             handleShowAlert("Fetching Amount Details unsucessfull", "error");
         }
-
-
-        return () => {
-
-        };
     }, []);
     const handleShowAlert = (message, severity) => {
         setAlertMessage(message);
