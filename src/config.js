@@ -1,7 +1,7 @@
 // http://localhost:3000/
 // https://vistasbackend.vercel.app
 const config = {
-    baseURL: ' http://localhost:3000/api',
+    baseURL: 'https://vistasbackend.vercel.app/api',
 };
 
 export default config;
