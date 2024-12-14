@@ -131,8 +131,16 @@ const items = details.split(',');
         navigate("/login");
       }
     } catch (error) {
-      handleShowAlert("An error occurred while saving the details", "error");
-    }
+      if (error.response?.status === 504) {
+        // Handle 504 Gateway Timeout specifically
+        handleShowAlert(
+          "The server is taking too long to respond. Please try again later.",
+          "error"
+        );
+      } else {
+        // Handle other errors
+        handleShowAlert("An error occurred while saving the details", "error");
+      }    }
   };
   
 

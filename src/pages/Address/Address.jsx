@@ -32,7 +32,7 @@ const Address = () => {
 
   const handleContinue = () => {
     if (isFormValid) {
-      if (sessionStorage.getItem("orderExecuted") === true) navigate("/order");
+      if (sessionStorage.getItem("orderExecuted")) navigate("/order");
       else navigate("/branding");
     }
   };

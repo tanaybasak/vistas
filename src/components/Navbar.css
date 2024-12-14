@@ -5,15 +5,24 @@
 .appBar {
     background-color: #fff !important;
     color: #000;
-    border-bottom: 1px solid #ECEDEE;
+    border-bottom: 1px solid #ecedee;
     .appBar_toolbar {
         display: flex;
         flex-grow: 1;
         justify-content: center;
-        gap: 2
+        gap: 20px;
+        .appBar_button {
+            font-weight: 600;
+            color: black;
+            width: 120px;
+        }
     }
 }
 
 .header-login {
     background-color: #fff;
+    .profile_img {
+        height: 1.2rem;
+        margin-right: 5px;
+    }
 }

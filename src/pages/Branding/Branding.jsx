@@ -6,6 +6,7 @@ import notebook from '../../assets/image2.svg';
 import notepad from '../../assets/image3.svg';
 import envelop from '../../assets/image4.svg';
 import './Branding.css';
+import { useState } from "react";
 
 const cardData = [
   { id: 1, title: "VISITING CARD", description: "This is Brand 1", details:"Rectangle: 9*5cm, Square: 5*5 cm, Custom: Call 987544333",amount: 200,quantity: 10, image: visitingImg },
@@ -19,11 +20,17 @@ const cardData = [
 
 ];
 
+
+
+
+
 function Branding() {
+  const [cardDataItems, setCardData] = useState(cardData);
+
   return (
     <>
       <div className="branding_container">
-        {cardData.map((card) => (
+        {cardDataItems.length > 0 && cardDataItems.map((card) => (
           <div className="grid-item" key={card.id}>
             <CardBrand title={card.title} description={card.description} img={card.image} details={card.details} amount={card.amount} quantity={card.quantity} id={card.id} />
           </div>

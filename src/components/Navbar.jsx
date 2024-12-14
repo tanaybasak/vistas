@@ -5,6 +5,7 @@ import "./Navbar.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useOtpContext } from "../context/OtpContext";
+import profile from '../assets/profile.svg';
 function Navbar() {
   const [activeButton, setActiveButton] = useState(0); // Track the active button
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ function Navbar() {
             </>
           )}
           {otpVerified ? <></> : <Button variant="contained" onClick={() => navigate("/login")}>
-            LogIn / SIGN-UP
+           <img src={profile} className="profile_img"></img> Sign up / Sign in
           </Button>}
         </Grid2>
       </Grid2>
@@ -51,9 +52,8 @@ function Navbar() {
               CONST.menuItems.map((item, index) => (
                 <Button
                   key={item.label}
+                  className="appBar_button"
                   sx={{
-                    color: "black",
-                    width: "150px",
                     backgroundColor:
                       activeButton === index ? "lightgray" : "transparent",
                   }}
