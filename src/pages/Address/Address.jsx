@@ -77,7 +77,12 @@ const Address = () => {
             className="address_text"
             onChange={(e) => handleInputChange("pincode", e.target.value)}
           />
-
+   <InputField
+            placeholder="Phone number*"
+            type="number"
+            className="address_text"
+            onChange={(e) => handleInputChange("phonenumber", e.target.value)}
+          />
           <Button
             variant="contained"
             className="continue-button address_btn"
