@@ -7,32 +7,27 @@ import axios from "axios";
 import AlertComponent from "../../components/Alert";
 import config from '../../config.js';
 const Login = () => {
-  const [phoneNumber, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState("info");
-  const [isPhoneValid, setIsPhoneValid] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(false);
   const navigate = useNavigate();
 
 
 
-  const validatePhoneNumber = (number) => {
-    // Regex to validate Indian phone number with +91
-    const regex = /^\+91[6-9]\d{9}$/;
-    return regex.test(number);
+  const validateEmail = (email) => {
+    // Regex to validate email
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
   };
 
-  const handlePhoneChange = (e) => {
-    let value = e.target.value.trim();
-
-    // Ensure "+91" is always present at the start
-    if (!value.startsWith("+91")) {
-      value = `+91${value.replace(/^\+91/, "")}`;
-    }
-
-    setPhone(value);
-    setIsPhoneValid(validatePhoneNumber(value));
+  const handleEmailChange = (e) => {
+    const value = e.target.value.trim();
+    setEmail(value);
+    setIsEmailValid(validateEmail(value));
   };
+
 
   const handleShowAlert = (message, severity) => {
     setAlertMessage(message);
@@ -48,12 +43,12 @@ const Login = () => {
   const handleContinue = async () => {
     try {
       const response = await axios.post(`${config.baseURL}/otp/send-otp`, {
-        phoneNumber,
+        email,
       });
       if (response.data.success) {
         handleShowAlert("Otp sent successfully!", "success");
         setTimeout(() => {
-          navigate("/otp", { state: { phoneNumber } });
+          navigate("/otp", { state: { email } });
         }, 2000);
       }
     } catch (error) {
@@ -70,11 +65,11 @@ const Login = () => {
 
         <Box className="login_content">
           <InputField
-            placeholder="+91 | Mobile Number*"
-            type="text"
-            className="login_text"
-            onChange={handlePhoneChange}
-            value={phoneNumber}
+             placeholder="Enter your email*"
+             type="email"
+             className="login_text"
+             onChange={handleEmailChange}
+             value={email}
           />
           <Typography
             variant="subtitle1"
@@ -88,7 +83,7 @@ const Login = () => {
             variant="contained"
             className="continue-button login_button"
             onClick={handleContinue}
-            disabled={!isPhoneValid} // Button is enabled only if phone number is valid
+            disabled={!isEmailValid} // Button is enabled only if phone number is valid
             fullWidth
           >
             Continue

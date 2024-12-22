@@ -296,7 +296,7 @@ Form.propTypes = {
   description: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
-  quantity: PropTypes.string.isRequired,
+  quantity: PropTypes.number.isRequired,
   amount: PropTypes.number.isRequired,
   details: PropTypes.string.isRequired,
 };

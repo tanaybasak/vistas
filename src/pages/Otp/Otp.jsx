@@ -14,15 +14,15 @@ const Otp = () => {
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState("info");
-  const { phoneNumber } = location.state || {};
+  const { email } = location.state || {};
   const { updatePhoneNumber, verifyOtp } = useOtpContext();
   const inputsRef = useRef([]);
   const [otp, setOtp] = useState(Array(4).fill("")); // Initialize OTP as an array of empty strings
 
   useEffect(() => {
     // Update phoneNumber in context if available from location.state
-    if (location.state?.phoneNumber) {
-      updatePhoneNumber(phoneNumber);
+    if (location.state?.email) {
+      updatePhoneNumber(email);
     }
   }, [location.state, updatePhoneNumber]);
 
@@ -58,7 +58,7 @@ const Otp = () => {
     const otpCode = otp.join(""); // Combine OTP digits into a single string
     try {
       const response = await axios.post(`${config.baseURL}/otp/verify-otp`, {
-        phoneNumber: phoneNumber,
+        email: email,
         code: otpCode,
       });
       if (response.data.success) {
@@ -87,10 +87,10 @@ const Otp = () => {
           color="textSecondary"
           className="otp-subtitle"
         >
-          Sent to {phoneNumber}
+          Sent to {email}
         </Typography>
         <Box className="otp_content">
-          {[...Array(4)].map((_, index) => (
+          {[...Array(6)].map((_, index) => (
             <InputField
               key={index}
               placeholder=""

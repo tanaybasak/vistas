@@ -21,7 +21,7 @@
     display: grid;
     place-items: center;
     grid-auto-flow: column;
-    width: 50%;
+    width: 70%;
     gap: 15px;
 }
 

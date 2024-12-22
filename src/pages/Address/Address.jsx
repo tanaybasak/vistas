@@ -32,6 +32,7 @@ const Address = () => {
 
   const handleContinue = () => {
     if (isFormValid) {
+      localStorage.setItem('address', formValues);
       if (sessionStorage.getItem("orderExecuted")) navigate("/order");
       else navigate("/branding");
     }

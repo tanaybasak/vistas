@@ -1,6 +1,7 @@
 .student_form_container {
     padding: 4rem;
     background-color: #F4F7FF;
+    height: 100vh;
     .assignment_container {
         display: grid;
         gap: 20px 10px;
