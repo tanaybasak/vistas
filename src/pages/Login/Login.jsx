@@ -2,7 +2,7 @@ import { Box, Typography, Button } from "@mui/material";
 import "./Login.css";
 import InputField from "../../components/InputField";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import AlertComponent from "../../components/Alert";
 import config from '../../config.js';
@@ -12,68 +12,64 @@ const Login = () => {
   const [alertMessage, setAlertMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState("info");
   const [isEmailValid, setIsEmailValid] = useState(false);
+
   const navigate = useNavigate();
 
-  useEffect(() => {
-    window.otpless = (otplessUser) => {
-      console.log(otplessUser)
-      alert(JSON.stringify(otplessUser));
-    };
-  }, []);
-
-  // const validateEmail = (email) => {
-  //   // Regex to validate email
-  //   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  //   return regex.test(email);
-  // };
-
-  // const handleEmailChange = (e) => {
-  //   const value = e.target.value.trim();
-  //   setEmail(value);
-  //   setIsEmailValid(validateEmail(value));
-  // };
-
-
-  // const handleShowAlert = (message, severity) => {
-  //   setAlertMessage(message);
-  //   setAlertSeverity(severity);
-  //   setAlertOpen(true);
-  // };
-
-  // const handleCloseAlert = () => {
-  //   setAlertOpen(false);
-  // };
 
   
-  // const handleContinue = async () => {
-  //   try {
-  //     const response = await axios.post(`${config.baseURL}/otp/send-otp`, {
-  //       email,
-  //     });
-  //     if (response.data.success) {
-  //       handleShowAlert("Otp sent successfully!", "success");
-  //       setTimeout(() => {
-  //         navigate("/otp", { state: { email } });
-  //       }, 2000);
-  //     }
-  //   } catch (error) {
-  //     handleShowAlert("Failed to send OTP", "failure");
-  //   }
-  // };
+  const validateEmail = (email) => {
+    // Regex to validate email
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
+  const handlePhoneChange = (e) => {
+    const value = e.target.value.trim();
+    setEmail(value);
+    setIsEmailValid(validateEmail(value));
+  };
+
+
+  const handleShowAlert = (message, severity) => {
+    setAlertMessage(message);
+    setAlertSeverity(severity);
+    setAlertOpen(true);
+  };
+
+  const handleCloseAlert = () => {
+    setAlertOpen(false);
+  };
+
+  
+  const handleContinue = async () => {
+    try {
+      const response = await axios.post(`${config.baseURL}/otp/send-otp`, {
+        email,
+      });
+      if (response.data.success) {
+        handleShowAlert("Otp sent successfully!", "success");
+        setTimeout(() => {
+          navigate("/otp", { state: { email } });
+        }, 2000);
+      }
+    } catch (error) {
+      handleShowAlert("Failed to send OTP", "failure");
+    }
+  };
 
   return (
     <Box className="login-page">
       <Box className="login-box">
-        {/* <Typography variant="h5" className="login-heading">
+        <Typography variant="h5" className="login-heading">
           LOGIN or SIGNUP
         </Typography>
 
         <Box className="login_content">
           <InputField
              placeholder="Enter your email*"
-             type="email"
+             type="phone"
              className="login_text"
-             onChange={handleEmailChange}
+             onChange={handlePhoneChange}
              value={email}
           />
           <Typography
@@ -93,18 +89,16 @@ const Login = () => {
           >
             Continue
           </Button>
-        </Box> */}
-        <div id="otpless-login-page"></div>
-
+        </Box>
       </Box>
-      {/* <AlertComponent
+      <AlertComponent
         message={alertMessage}
         severity={alertSeverity}
         open={alertOpen}
         onClose={handleCloseAlert}
-      /> */}
+      />
     </Box>
   );
 };
 
-export default Login;
+export default Login; 

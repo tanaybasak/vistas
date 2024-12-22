@@ -73,3 +73,8 @@
         height: 1rem;
     }
 }
+
+#otpless-floating-button {
+    position: relative !important;
+    opacity: 1 !important;
+}
