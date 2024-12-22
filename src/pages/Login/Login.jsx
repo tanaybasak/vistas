@@ -16,6 +16,7 @@ const Login = () => {
 
   useEffect(() => {
     window.otpless = (otplessUser) => {
+      console.log(otplessUser)
       alert(JSON.stringify(otplessUser));
     };
   }, []);
