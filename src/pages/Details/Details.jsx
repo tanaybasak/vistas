@@ -13,7 +13,7 @@ console.log(id)
   return (
     <Box className="plr-5">
       <Grid2 container spacing={2}>
-        <Grid2 size={{ xs: 6, md: 5 }}>
+        <Grid2 size={{ xs: 6, md: 5 }} className="details">
           <img src={imgDetails} alt="call" width={"700px"} height={"700px"} />
         </Grid2>
         <Grid2 size={{ xs: 6, md: 7 }} className="font-bold p-2">

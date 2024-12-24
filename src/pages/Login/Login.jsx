@@ -8,25 +8,36 @@ import AlertComponent from "../../components/Alert";
 import config from '../../config.js';
 const Login = () => {
   const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState("info");
   const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isPhoneValid, setIsPhoneValid] = useState(false); // Validation state for phone number
 
   const navigate = useNavigate();
 
+  const validatePhoneNumber = (phoneNumber) => {
+    const regex = /^\d{10}$/; // Assuming a 10-digit phone number
+    return regex.test(phoneNumber);
+  };
 
-  
   const validateEmail = (email) => {
     // Regex to validate email
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
   };
 
-  const handlePhoneChange = (e) => {
+  const handleEmailChange = (e) => {
     const value = e.target.value.trim();
     setEmail(value);
     setIsEmailValid(validateEmail(value));
+  };
+
+  const handlePhoneChange = (e) => {
+    const value = e.target.value.trim();
+    setPhoneNumber(value);
+    setIsPhoneValid(validatePhoneNumber(value)); // Update phone validation
   };
 
 
@@ -47,7 +58,7 @@ const Login = () => {
         email,
       });
       if (response.data.success) {
-        handleShowAlert("Otp sent successfully!", "success");
+        handleShowAlert("Otp sent successfully to your email!", "success");
         setTimeout(() => {
           navigate("/otp", { state: { email } });
         }, 2000);
@@ -65,11 +76,18 @@ const Login = () => {
         </Typography>
 
         <Box className="login_content">
+      <InputField
+            placeholder="Enter your phone number*"
+            type="tel"
+            className="login_text"
+            onChange={handlePhoneChange}
+            value={phoneNumber}
+          />
           <InputField
              placeholder="Enter your email*"
              type="phone"
              className="login_text"
-             onChange={handlePhoneChange}
+             onChange={handleEmailChange}
              value={email}
           />
           <Typography
@@ -84,7 +102,7 @@ const Login = () => {
             variant="contained"
             className="continue-button login_button"
             onClick={handleContinue}
-            disabled={!isEmailValid} // Button is enabled only if phone number is valid
+            disabled={!isEmailValid || !isPhoneValid} // Button is enabled only if phone number is valid
             fullWidth
           >
             Continue

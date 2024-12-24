@@ -143,6 +143,7 @@ const items = details.split(',');
       }    }
   };
   
+  const isSubmitDisabled = !formData.uploadedDragFile && !formData.uploadedDesignFile;
 
   return (
     <Box className="form">
@@ -265,6 +266,7 @@ const items = details.split(',');
           variant="contained"
           className="print_btn"
           onClick={handleSubmit}
+          disabled={isSubmitDisabled} // Disable the button if either file is missing
         >
           Print my visiting card
         </Button>
