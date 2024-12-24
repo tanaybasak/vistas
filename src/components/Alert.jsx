@@ -3,6 +3,12 @@ import { Snackbar, Alert } from "@mui/material";
 import PropTypes from "prop-types";
 
 const AlertComponent = ({ message, severity, open, onClose, autoHideDuration = 6000 }) => {
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    onClose();
+  };
   return (
     <Snackbar
       open={open}
@@ -10,7 +16,7 @@ const AlertComponent = ({ message, severity, open, onClose, autoHideDuration = 6
       onClose={onClose}
       anchorOrigin={{ vertical: "top", horizontal: "center" }}
     >
-      <Alert onClose={onClose} severity={severity} sx={{ width: "100%" }}>
+      <Alert onClose={handleClose} severity={severity} sx={{ width: "100%" }}>
         {message}
       </Alert>
     </Snackbar>

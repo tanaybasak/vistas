@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Typography, Button, Stack } from "@mui/material";
+import { Box, Typography, Button, IconButton } from "@mui/material";
 import "./Address.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
@@ -19,14 +19,14 @@ const Address = () => {
   const handleInputChange = (field, value) => {
     const updatedValues = { ...formValues, [field]: value };
     setFormValues(updatedValues);
-  
+
     if (field === "pincode") {
       // Validate pincode (should be 6 digits)
-      const pincodeRegex = /^\d{6}$/;  // Using \d instead of [0-9]
+      const pincodeRegex = /^[0-9]{6}$/;
       setIsValidPincode(pincodeRegex.test(value));
     }
   };
-  
+
   const isFormValid =
     Object.values(formValues).every((value) => value.trim() !== "") &&
     isValidPincode;
@@ -42,14 +42,12 @@ const Address = () => {
   return (
     <Box className="address-page">
       <Box className="address-box">
-      <Stack direction="row" alignItems="center" spacing={2}>
-          <IconButton onClick={() => navigate(-1)}>
-            <ArrowBackIcon />
-          </IconButton>
-          <Typography variant="h5" className="address-heading">
-            ENTER YOUR ADDRESS
-          </Typography>
-        </Stack>
+        <IconButton onClick={() => navigate(-1)}>
+          <ArrowBackIcon />
+        </IconButton>
+        <Typography variant="h5" className="address-heading">
+          ENTER YOUR ADDRESS
+        </Typography>
         <Typography
           variant="subtitle1"
           color="textSecondary"
@@ -83,6 +81,7 @@ const Address = () => {
             className="address_text"
             onChange={(e) => handleInputChange("pincode", e.target.value)}
           />
+
           <Button
             variant="contained"
             className="continue-button address_btn"

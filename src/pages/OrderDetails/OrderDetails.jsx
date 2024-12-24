@@ -39,24 +39,27 @@ const OrderDetails = () => {
     });
 
 
-    useEffect(async () => {
-
-        try {
-            const response = await axios.get(config.baseURL + `/branding/getBranding/${orderId}`);
-            const amountDetails = response.data;
-      
-            setAmountDetails(amountDetails);
-            setPaymentBreakup([
-                { name: `${amountDetails.itemName} * ${amountDetails.quantity}`, price: amountDetails.amount },
-                { name: "Delivery charges", price: amountDetails.delivery },
-                { name: "GST 5%", price: amountDetails.gst },
-                { name: "Total", price: amountDetails.totalAmount, className: "total_price" }
-              ]);              
-
-        } catch (error) {
-            handleShowAlert("Fetching Amount Details unsucessfull", "error");
-        }
-    }, []);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(config.baseURL + `/branding/getBranding/${orderId}`);
+                const amountDetails = response.data;
+    
+                setAmountDetails(amountDetails);
+                setPaymentBreakup([
+                    { name: `${amountDetails.itemName} * ${amountDetails.quantity}`, price: amountDetails.amount },
+                    { name: "Delivery charges", price: amountDetails.delivery },
+                    { name: "GST 5%", price: amountDetails.gst },
+                    { name: "Total", price: amountDetails.totalAmount, className: "total_price" }
+                ]);
+            } catch (error) {
+                handleShowAlert("Fetching Amount Details unsuccessful", "error");
+            }
+        };
+    
+        fetchData(); // Call the async function
+    }, [orderId]); // Add orderId as a dependency
+    
     const handleShowAlert = (message, severity) => {
         setAlertMessage(message);
         setAlertSeverity(severity);
